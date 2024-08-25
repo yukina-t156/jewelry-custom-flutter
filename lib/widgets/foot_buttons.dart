@@ -10,22 +10,22 @@ class FooterButtons extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
             Expanded(
-              child: _buildButton(context, 'ホーム', Icons.home),
+              child: _buildButton(context, 'ホーム', Icons.home, '/home'),
             ),
             SizedBox(width: 8), // ボタンの間に縦のスペースを追加
             Expanded(
-              child: _buildButton(context, 'プロフィール', Icons.person),
+              child: _buildButton(context, 'プロフィール', Icons.person, '/profile'),
             ),
             SizedBox(width: 8), // ボタンの間に縦のスペースを追加
             Expanded(
-              child: _buildButton(context, 'フレンド', Icons.group),
+              child: _buildButton(context, 'フレンド', Icons.group, '/friends'),
             ),
         ],
       ),
     );
   }
 
-  Widget _buildButton(BuildContext context, String label, IconData icon) {
+  Widget _buildButton(BuildContext context, String label, IconData icon, String route) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
@@ -39,7 +39,7 @@ class FooterButtons extends StatelessWidget {
       // tooltip: label,
       onPressed: () {
         // 各ボタンが押されたときの処理をここに記述
-        // 例: Navigator.pushNamed(context, '/${label}');
+        Navigator.pushNamed(context, route);
       },
       
       child: Column(
