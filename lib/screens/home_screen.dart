@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jewelry_custom_flutter/screens/collections_screen.dart';
 import 'package:jewelry_custom_flutter/widgets/foot_buttons.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -12,6 +13,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final buttonWidth = screenWidth * 0.75; // 画面幅の80%
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue[100],
@@ -26,19 +30,22 @@ class _HomeScreenState extends State<HomeScreen> {
               children: <Widget>[
                 Image.asset(
                   'assets/images/test_jewel.png',
-                  cacheWidth: 200,
-                  cacheHeight: 200,
+                  width: 150, // 幅を指定
+                  height: 150, // 高さを指定
+                  fit: BoxFit.cover, // 画像を親ウィジェットに合わせてサイズ変更
                 ),
               ],
             ),
           ),
           /* -------------- みがくボタン -------------- */
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.all(100.0),
+          Positioned(
+            bottom: 20, // 画面下からの距離
+            left: (screenWidth - buttonWidth) / 2, // ボタンを中央に配置
+            child: Container(
+              width: buttonWidth,
               child: ElevatedButton(
                 onPressed: () {
+                  // ボタンが押されたときの処理
                 },
                 child: const Text(
                   'みがく',
@@ -51,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
-                  fixedSize: Size(300, 100),
+                  fixedSize: Size(buttonWidth, 100), // ボタンの幅と高さ
                 ),
               ),
             ),
@@ -64,9 +71,9 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () {
                 // ボタンが押されたときの処理
                 Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => CollectionsScreen()),
-            );
+                  context,
+                  MaterialPageRoute(builder: (context) => CollectionsScreen()),
+                );
               },
               backgroundColor: Colors.white, // 背景の色
               foregroundColor: Colors.black, // アイコンの色
