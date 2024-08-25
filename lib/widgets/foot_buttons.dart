@@ -45,13 +45,13 @@ class FooterButtons extends StatelessWidget {
           Icon(
               icon,
               size: 30,
-              color: isActive ? Colors.amber : Colors.grey[700],
+              color: isActive ? Colors.white : Colors.grey[700],
             ),
           Text(
             label,
             style: TextStyle(
               fontSize: 12,
-              color: isActive ? Colors.amber : Colors.grey[700],
+              color: isActive ? Colors.white : Colors.grey[700],
             ),
           ),
         ],
