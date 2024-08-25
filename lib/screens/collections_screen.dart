@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:jewelry_custom_flutter/widgets/foot_buttons.dart'; // 実際のパスに合わせてください
+import 'package:jewelry_custom_flutter/widgets/foot_buttons.dart';
 
 class CollectionsScreen extends StatefulWidget {
   const CollectionsScreen({super.key});
