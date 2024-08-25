@@ -85,7 +85,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
       bottomNavigationBar: Container(
         color: Colors.grey[300], // 背景の灰色
         height: 150, // 背景の高さ
-        child: FooterButtons(), // フッターボタンを追加
+        child: FooterButtons(location: 3), // フッターボタンを追加
       ),
     );
   }

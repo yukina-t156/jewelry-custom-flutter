@@ -58,7 +58,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       bottomNavigationBar: Container(
         color: Colors.grey[300], // 背景の灰色
         height: 150, // 背景の高さ
-        child: FooterButtons(), // フッターボタンを追加
+        child: FooterButtons(location: 2), // フッターボタンを追加
       ),
     );
   }
