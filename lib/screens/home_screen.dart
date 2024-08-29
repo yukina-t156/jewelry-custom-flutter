@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jewelry_custom_flutter/screens/collections_screen.dart';
@@ -11,6 +13,33 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int _jewelCounter = 0;
+  int _level = 1;
+
+  static const List<int> countToLevel = [1, 5, 10, 20, 999999999];
+  void _update() {
+    _level=0;
+    while(_jewelCounter>=countToLevel[max(_level, 0)]){
+      setState(() {
+        _level++;
+      });
+    }
+  }
+
+  void _incrementJewelCounter() {
+    setState(() {
+      _jewelCounter++;
+    });
+    _update();
+  }
+
+  void _resetJewelCounter() {
+    setState(() {
+      _jewelCounter=0;
+    });
+    _update();
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -39,13 +68,14 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           /* -------------- みがくボタン -------------- */
           Positioned(
-            bottom: 20, // 画面下からの距離
+            bottom: 60, // 画面下からの距離
             left: (screenWidth - buttonWidth) / 2, // ボタンを中央に配置
             child: Container(
               width: buttonWidth,
               child: ElevatedButton(
                 onPressed: () {
                   // ボタンが押されたときの処理
+                  _incrementJewelCounter();
                 },
                 child: const Text(
                   'みがく',
@@ -58,7 +88,22 @@ class _HomeScreenState extends State<HomeScreen> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
-                  fixedSize: Size(buttonWidth, 100), // ボタンの幅と高さ
+                  fixedSize: Size(buttonWidth, 70), // ボタンの幅と高さ
+                ),
+              ),
+            ),
+          ),
+          /* -------------- カウンタ・レベル表示 -------------- */
+          Positioned(
+            bottom: 30, // 画面下からの距離
+            left: (screenWidth - buttonWidth) / 2, // ボタンを中央に配置
+            child: Container(
+              width: buttonWidth,
+              child:Center(
+                child: Text(
+                  // 'レベル：$_level',
+                  '磨いた回数：$_jewelCounter レベル：$_level',
+                  style: TextStyle(fontSize: 16),
                 ),
               ),
             ),
@@ -70,10 +115,12 @@ class _HomeScreenState extends State<HomeScreen> {
             child: FloatingActionButton(
               onPressed: () {
                 // ボタンが押されたときの処理
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => CollectionsScreen()),
-                );
+                // デバッグ用
+                _resetJewelCounter();
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => CollectionsScreen()),
+                // );
               },
               backgroundColor: Colors.white, // 背景の色
               foregroundColor: Colors.black, // アイコンの色
