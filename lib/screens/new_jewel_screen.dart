@@ -46,9 +46,17 @@ class _NewJewelScreenState extends State<NewJewelScreen> {
                 SizedBox(
                   width: 200,
                   height: 200,
-                  child: Image.asset(
-                    (selectedJewelTypeId!=null)?getJewelImagePath(selectedJewelTypeId ?? 0, 5):'assets/images/test_jewel.png',
+                  child: selectedJewelTypeId != null
+                      ? Image.asset(
+                    getJewelImagePath(selectedJewelTypeId ?? 0, 5),
                     fit: BoxFit.cover,
+                  )
+                      : const Text(
+                    'Choose jewel',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
                   ),
                 ),
               ],
@@ -71,7 +79,7 @@ class _NewJewelScreenState extends State<NewJewelScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => HomeScreen(jewel: jewel), // 修正済み
+                        builder: (context) => HomeScreen(jewel: jewel),
                       ),
                     );
                   } else {
