@@ -1,19 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jewelry_custom_flutter/screens/collections_screen.dart';
+import 'package:jewelry_custom_flutter/screens/new_jewel_screen.dart';
+import 'package:jewelry_custom_flutter/screens/finish_jewel_screen.dart';
 import 'package:jewelry_custom_flutter/widgets/foot_buttons.dart';
 import 'package:jewelry_custom_flutter/model/jewel_model.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final Jewel? jewel;
+
+  const HomeScreen({super.key, this.jewel});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Jewel _jewel = Jewel(gemTypeId: 2, counter: 0, level: 0); // 初期化
+  late Jewel _jewel;
 
+  @override
+  void initState() {
+    super.initState();
+    _jewel = widget.jewel ?? Jewel(jewelTypeId: 2, counter: 0, level: 0); // 初期化
+  }
 
   static const List<int> countToLevel = [3, 10, 15, 20, 30, 999999999];
   void _update() {
@@ -37,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _resetJewelCounter() {
     setState(() {
-      _jewel = Jewel(gemTypeId: 2, counter: 0, level: 0);
+      _jewel = Jewel(jewelTypeId: 1, counter: 0, level: 0);
     });
     _update();
   }
@@ -111,19 +120,64 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          /* -------------- コレクションのボタン -------------- */
+          /* -------------- コレクションのボタン1 -------------- */
           Positioned(
             top: 20,
             right: 20,
             child: FloatingActionButton(
+              heroTag: 'setting button',
               onPressed: () {
                 // ボタンが押されたときの処理
                 // デバッグ用
                 _resetJewelCounter();
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => CollectionsScreen()),
-                // );
+              },
+              backgroundColor: Colors.white, // 背景の色
+              foregroundColor: Colors.black, // アイコンの色
+              shape: RoundedRectangleBorder(
+                // 枠
+                borderRadius: BorderRadius.circular(15),
+                side: const BorderSide(color: Colors.orange, width: 4),
+              ),
+              child: const FaIcon(FontAwesomeIcons.gear),
+            ),
+          ),
+          /* -------------- コレクションのボタン2 -------------- */
+          Positioned(
+            top: 85,
+            right: 20,
+            child: FloatingActionButton(
+              heroTag: 'finish button',
+              onPressed: () {
+              // ボタンが押されたときの処理
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => FinishJewelScreen(jewel: _jewel),
+                  ),
+                );
+              },
+              backgroundColor: Colors.white, // 背景の色
+              foregroundColor: Colors.black, // アイコンの色
+              shape: RoundedRectangleBorder(
+                // 枠
+                borderRadius: BorderRadius.circular(15),
+                side: const BorderSide(color: Colors.orange, width: 4),
+              ),
+              child: const FaIcon(FontAwesomeIcons.toolbox),
+            ),
+          ),
+          /* -------------- コレクションのボタン3 -------------- */
+          Positioned(
+            top: 150,
+            right: 20,
+            child: FloatingActionButton(
+              heroTag: 'collection button',
+              onPressed: () {
+                // ボタンが押されたときの処理
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CollectionsScreen()),
+                );
               },
               backgroundColor: Colors.white, // 背景の色
               foregroundColor: Colors.black, // アイコンの色

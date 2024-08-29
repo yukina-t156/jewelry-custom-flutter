@@ -2,31 +2,35 @@ class Jewel {
   String? name; // オプションにするために String? を使用
   int counter;
   int level;
-  final int gemTypeId; // gemNumber から gemTypeId へ変更
+  final int jewelTypeId;
   String? imagePath;
 
   // コンストラクタ
   Jewel({
-    required this.gemTypeId,
+    required this.jewelTypeId,
     required this.counter,
     required this.level,
-  }): name = gemNames[gemTypeId],
-        imagePath = 'assets/images/${gemNames[gemTypeId]}_0.png';
+  }): name = jewelNames[jewelTypeId],
+        imagePath = 'assets/images/${jewelNames[jewelTypeId]}_0.png';
 
   void updatePath() {
-    String? gemName = gemNames[gemTypeId]; // gemTypeIdに対応する名前を取得
+    String? jewelName = jewelNames[jewelTypeId];
 
-    if (gemName != null) {
-      imagePath = 'assets/images/${gemName}_$level.png';
+    if (jewelName != null) {
+      imagePath = getJewelImagePath(jewelTypeId, level);
     } else {
-      // gemTypeIdが正しくない場合のエラーハンドリング
+      // jewelTypeIdが正しくない場合のエラーハンドリング
       imagePath = null;
     }
   }
 }
 
-// gemId をキーとした宝石の名前リスト
-final Map<int, String> gemNames = {
+String getJewelImagePath(int jewelTypeId, int level){
+  return 'assets/images/${jewelNames[jewelTypeId]}_$level.png';
+}
+
+// jewelId をキーとした宝石の名前リスト
+final Map<int, String> jewelNames = {
   1: 'diamond',
   2: 'ruby',
 };
