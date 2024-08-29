@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jewelry_custom_flutter/screens/collections_screen.dart';
-import 'package:jewelry_custom_flutter/screens/new_jewel_screen.dart';
 import 'package:jewelry_custom_flutter/screens/finish_jewel_screen.dart';
 import 'package:jewelry_custom_flutter/widgets/foot_buttons.dart';
 import 'package:jewelry_custom_flutter/model/jewel_model.dart';
@@ -82,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Positioned(
             bottom: 60, // 画面下からの距離
             left: (screenWidth - buttonWidth) / 2, // ボタンを中央に配置
-            child: Container(
+            child: SizedBox(
               width: buttonWidth,
               child: ElevatedButton(
                 onPressed: () {
@@ -176,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 // ボタンが押されたときの処理
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => CollectionsScreen()),
+                  MaterialPageRoute(builder: (context) => const CollectionsScreen()),
                 );
               },
               backgroundColor: Colors.white, // 背景の色

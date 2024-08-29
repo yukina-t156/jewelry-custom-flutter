@@ -35,11 +35,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
         future: userFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('エラー: ${snapshot.error}'));
           } else if (!snapshot.hasData) {
-            return Center(child: Text('データがありません'));
+            return const Center(child: Text('データがありません'));
           } else {
             final user = snapshot.data!;
             return Center(
@@ -65,10 +65,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10),
-                  Text(user.name, style: TextStyle(fontSize: 20)),
-                  Text("Lv.${user.level}", style: TextStyle(fontSize: 16)),
-                  Text("開始日: ${DateFormat('yyyy-MM-dd').format(user.startDate)}", style: TextStyle(fontSize: 14)),
+                  const SizedBox(height: 10),
+                  Text(user.name, style: const TextStyle(fontSize: 20)),
+                  Text("Lv.${user.level}", style: const TextStyle(fontSize: 16)),
+                  Text("開始日: ${DateFormat('yyyy-MM-dd').format(user.startDate)}", style: const TextStyle(fontSize: 14)),
                 ],
               ),
             );
@@ -79,7 +79,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       bottomNavigationBar: Container(
         color: Colors.grey[300], // 背景の灰色
         height: 150, // 背景の高さ
-        child: FooterButtons(location: 2), // フッターボタンを追加
+        child: const FooterButtons(location: 2), // フッターボタンを追加
       ),
     );
   }
@@ -88,7 +88,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 Future<User> fetchUserData() async {
   // 実際のAPI呼び出しに置き換えてください
   final response = await Future.delayed(
-    Duration(seconds: 2),
+    const Duration(seconds: 2),
         () => {
       'id': 1,
       'name': 'hanako',

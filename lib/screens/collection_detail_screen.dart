@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CollectionDetailScreen extends StatelessWidget {
   final int id;
 
-  const CollectionDetailScreen({Key? key, required this.id}) : super(key: key);
+  const CollectionDetailScreen({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {

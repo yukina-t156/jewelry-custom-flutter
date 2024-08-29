@@ -22,10 +22,10 @@ class MyApp extends StatelessWidget {
       // home: const HomeScreen(),
       initialRoute: '/new_jewel', // 初期ルート
       routes: {
-        '/home': (context) => HomeScreen(),
-        '/profile': (context) => ProfileScreen(),
-        '/friends': (context) => FriendsScreen(),
-        '/new_jewel': (context) => NewJewelScreen(),
+        '/home': (context) => const HomeScreen(),
+        '/profile': (context) => const ProfileScreen(),
+        '/friends': (context) => const FriendsScreen(),
+        '/new_jewel': (context) => const NewJewelScreen(),
       },
     );
   }

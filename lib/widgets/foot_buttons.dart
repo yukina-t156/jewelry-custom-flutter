@@ -14,11 +14,11 @@ class FooterButtons extends StatelessWidget {
           Expanded(
             child: _buildButton(context, 'ホーム', Icons.home, '/home', location == 1),
           ),
-          SizedBox(width: 8), // ボタンの間に縦のスペースを追加
+          const SizedBox(width: 8), // ボタンの間に縦のスペースを追加
           Expanded(
             child: _buildButton(context, 'プロフィール', Icons.person, '/profile', location == 2),
           ),
-          SizedBox(width: 8), // ボタンの間に縦のスペースを追加
+          const SizedBox(width: 8), // ボタンの間に縦のスペースを追加
           Expanded(
             child: _buildButton(context, 'フレンド', Icons.group, '/friends', location == 3),
           ),
@@ -34,7 +34,7 @@ class FooterButtons extends StatelessWidget {
         ),
         backgroundColor: isActive ? Colors.amber : Colors.amber[200], // ボタンの背景色
         foregroundColor: Colors.yellow[900], // ボタン上のテキストの色
-        padding: EdgeInsets.symmetric(vertical: 10.0), // ボタンの内側の余白（縦）
+        padding: const EdgeInsets.symmetric(vertical: 10.0), // ボタンの内側の余白（縦）
       ),
       onPressed: () {
         Navigator.pushNamed(context, route);

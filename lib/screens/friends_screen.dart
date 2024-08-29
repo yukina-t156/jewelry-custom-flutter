@@ -22,7 +22,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
         itemCount: 10, // リストのアイテム数
         itemBuilder: (context, index) {
           // ダミーデータの生成
-          final icon = Icons.star; // アイコン
+          const icon = Icons.star; // アイコン
           final name = 'Name ${index + 1}'; // 名前
           final level = 'Level ${index + 1}'; // レベル
           final id = index + 1; // 仮のID
@@ -55,7 +55,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                         shape: BoxShape.circle,
                         color: Colors.blueGrey[300], // アイコンの背景色
                       ),
-                      child: Icon(
+                      child: const Icon(
                         icon,
                         color: Colors.white, // アイコンの色
                         size: 24.0,
@@ -97,7 +97,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
       bottomNavigationBar: Container(
         color: Colors.grey[300], // 背景の灰色
         height: 150, // 背景の高さ
-        child: FooterButtons(location: 3), // フッターボタンを追加
+        child: const FooterButtons(location: 3), // フッターボタンを追加
       ),
     );
   }
