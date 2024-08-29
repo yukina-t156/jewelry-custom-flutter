@@ -64,6 +64,18 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/test_jewel.png
+    - assets/images/diamond_0.png
+    - assets/images/diamond_1.png
+    - assets/images/diamond_2.png
+    - assets/images/diamond_3.png
+    - assets/images/diamond_4.png
+    - assets/images/diamond_5.png
+    - assets/images/ruby_0.png
+    - assets/images/ruby_1.png
+    - assets/images/ruby_2.png
+    - assets/images/ruby_3.png
+    - assets/images/ruby_4.png
+    - assets/images/ruby_5.png
     # - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
