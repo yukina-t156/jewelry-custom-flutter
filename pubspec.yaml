@@ -78,6 +78,18 @@ flutter:
     - assets/images/ruby_3.png
     - assets/images/ruby_4.png
     - assets/images/ruby_5.png
+    - assets/images/emerald_0.png
+    - assets/images/emerald_1.png
+    - assets/images/emerald_2.png
+    - assets/images/emerald_3.png
+    - assets/images/emerald_4.png
+    - assets/images/emerald_5.png
+    - assets/images/neckless_ruby.png
+    - assets/images/neckless_diamond.png
+    - assets/images/neckless_emerald.png
+    - assets/images/ring_ruby.png
+    - assets/images/ring_diamond.png
+    - assets/images/ring_emerald.png
     # - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
