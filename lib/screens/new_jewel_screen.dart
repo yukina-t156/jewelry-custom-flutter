@@ -31,7 +31,7 @@ class _NewJewelScreenState extends ConsumerState<NewJewelScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 DropdownButton<int>(
-                  hint: const Text('Select a jewel type'),
+                  hint: const Text('宝石の種類を選んでね'),
                   value: selectedJewelTypeId,
                   onChanged: (int? newValue) {
                     setState(() {
@@ -54,7 +54,7 @@ class _NewJewelScreenState extends ConsumerState<NewJewelScreen> {
                     fit: BoxFit.cover,
                   )
                       : const Text(
-                    'Choose jewel',
+                    '選ぶ',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 20,
