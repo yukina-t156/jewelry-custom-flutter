@@ -60,9 +60,9 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.blue[100],
         title: const Text('Home'),
       ),
-      /* -------------- 宝石 -------------- */
       body: Stack(
         children: <Widget>[
+          /* -------------- 宝石 -------------- */
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
