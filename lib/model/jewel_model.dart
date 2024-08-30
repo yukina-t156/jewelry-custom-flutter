@@ -67,4 +67,5 @@ String getJewelImagePath(int jewelTypeId, int level) {
 final Map<int, String> jewelNames = {
   1: 'diamond',
   2: 'ruby',
+  3: 'emerald',
 };
