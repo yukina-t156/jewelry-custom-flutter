@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jewelry_custom_flutter/screens/collections_screen.dart';
 import 'package:jewelry_custom_flutter/screens/finish_jewel_screen.dart';
 import 'package:jewelry_custom_flutter/widgets/foot_buttons.dart';
+import 'package:jewelry_custom_flutter/services/jewel_service.dart';
 import 'package:jewelry_custom_flutter/model/jewel_model.dart';
 import 'package:jewelry_custom_flutter/providers.dart';
 
@@ -78,13 +79,14 @@ class HomeScreen extends ConsumerWidget {
               ),
             ),
           ),
-          /* -------------- コレクションのボタン1 -------------- */
+          /* -------------- 設定ボタン -------------- */
           Positioned(
             top: 20,
             right: 20,
             child: FloatingActionButton(
               heroTag: 'setting button',
-              onPressed: () {
+              onPressed: () async {
+                await JewelService.clearAllJewels();
                 ref.read(jewelProvider.notifier).resetJewel();
               },
               backgroundColor: Colors.white,
@@ -96,7 +98,7 @@ class HomeScreen extends ConsumerWidget {
               child: const FaIcon(FontAwesomeIcons.gear),
             ),
           ),
-          /* -------------- コレクションのボタン2 -------------- */
+          /* -------------- 完成ボタン -------------- */
           Positioned(
             top: 85,
             right: 20,
@@ -119,7 +121,7 @@ class HomeScreen extends ConsumerWidget {
               child: const FaIcon(FontAwesomeIcons.toolbox),
             ),
           ),
-          /* -------------- コレクションのボタン3 -------------- */
+          /* -------------- コレクションのボタン -------------- */
           Positioned(
             top: 150,
             right: 20,

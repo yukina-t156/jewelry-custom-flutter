@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:jewelry_custom_flutter/services/jewel_service.dart';
+import 'collection_detail_screen.dart';
+import 'package:jewelry_custom_flutter/model/jewel_model.dart';
 import 'package:jewelry_custom_flutter/widgets/foot_buttons.dart';
-import 'collection_detail_screen.dart'; // 追加: CollectionDetailScreenをインポート
 
 class CollectionsScreen extends StatefulWidget {
   const CollectionsScreen({super.key});
@@ -11,6 +12,21 @@ class CollectionsScreen extends StatefulWidget {
 }
 
 class _CollectionsScreenState extends State<CollectionsScreen> {
+  List<Jewel> jewels = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadJewels();
+  }
+
+  Future<void> _loadJewels() async {
+    final jewelList = await JewelService.getJewels();
+    setState(() {
+      jewels = jewelList.reversed.toList(); // 新しいものを上に表示
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,71 +34,64 @@ class _CollectionsScreenState extends State<CollectionsScreen> {
         backgroundColor: Colors.blue[100],
         title: const Text('コレクション'),
       ),
-      /* -------------- リスト -------------- */
-      body: ListView.builder(
-        itemCount: 10, // リストのアイテム数
+      body: jewels.isEmpty
+          ? Center(child: Text('コレクションはありません'))
+          : ListView.builder(
+        itemCount: jewels.length,
         itemBuilder: (context, index) {
-          // ダミーデータの生成
-          const icon = FontAwesomeIcons.gem;
-          final name = 'Name ${index + 1}'; // 名前
-          final level = 'Level ${index + 1}'; // レベル
-          final id = index + 1; // 仮のID
-
+          final jewel = jewels[index];
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0), // 左右の余白
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Container(
-              margin: const EdgeInsets.symmetric(vertical: 8.0), // 要素同士の間隔
-              padding: const EdgeInsets.all(16.0), // コンテンツの内側の余白
+              margin: const EdgeInsets.symmetric(vertical: 8.0),
+              padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
-                color: Colors.blueGrey[200], // 長方形の背景色
-                borderRadius: BorderRadius.circular(12.0), // 四角の角を丸くする
+                color: Colors.blueGrey[200],
+                borderRadius: BorderRadius.circular(12.0),
               ),
               child: InkWell(
                 onTap: () {
-                  // ボタンがタップされたときの処理
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => CollectionDetailScreen(id: id),
+                      builder: (context) => CollectionDetailScreen(id: jewel.id),
                     ),
                   );
                 },
                 child: Row(
                   children: <Widget>[
-                    /* -------------- アイコン -------------- */
                     Container(
                       width: 50.0,
                       height: 50.0,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Colors.blueGrey[300], // アイコンの背景色
+                        color: Colors.blueGrey[300],
                       ),
-                      child: const Icon(
-                        icon,
-                        color: Colors.white, // アイコンの色
-                        size: 24.0,
+                      child: ClipOval(
+                        child: Image.asset(
+                          jewel.imagePath ?? 'assets/images/default.png', // デフォルト画像を設定
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                    const SizedBox(width: 16.0), // アイコンとテキストの間隔
+                    const SizedBox(width: 16.0),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          /* -------------- 名前 -------------- */
                           Text(
-                            name,
+                            jewel.name ?? '',
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
-                              color: Colors.blueGrey[800], // 名前の色
+                              color: Colors.blueGrey[800],
                             ),
                           ),
-                          /* -------------- レベル -------------- */
                           Text(
-                            level,
+                            'レベル: ${jewel.level}',
                             style: TextStyle(
                               fontSize: 14,
-                              color: Colors.blueGrey[600], // レベルの色
+                              color: Colors.blueGrey[600],
                             ),
                           ),
                         ],
@@ -95,11 +104,10 @@ class _CollectionsScreenState extends State<CollectionsScreen> {
           );
         },
       ),
-      /* -------------- 下のメニュー欄 -------------- */
       bottomNavigationBar: Container(
-        color: Colors.grey[300], // 背景の灰色
-        height: 150, // 背景の高さ
-        child: const FooterButtons(), // フッターボタンを追加
+        color: Colors.grey[300],
+        height: 150,
+        child: const FooterButtons(),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jewelry_custom_flutter/model/jewel_model.dart';
+import 'package:jewelry_custom_flutter/services/jewel_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jewelry_custom_flutter/providers.dart';
 
@@ -69,9 +70,11 @@ class _NewJewelScreenState extends ConsumerState<NewJewelScreen> {
             child: SizedBox(
               width: buttonWidth,
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (selectedJewelTypeId != null) {
+                    final newId = await JewelService.generateNewId();
                     final jewel = Jewel(
+                      id: newId,
                       jewelTypeId: selectedJewelTypeId!,
                       counter: 0,
                       level: 0,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jewelry_custom_flutter/model/jewel_model.dart';
 import 'package:jewelry_custom_flutter/screens/new_jewel_screen.dart';
 import 'package:jewelry_custom_flutter/providers.dart';
+import 'package:jewelry_custom_flutter/services/jewel_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class FinishJewelScreen extends ConsumerStatefulWidget {
@@ -46,8 +47,9 @@ class _FinishJewelScreenState extends ConsumerState<FinishJewelScreen> {
             child: SizedBox(
               width: buttonWidth,
               child: ElevatedButton(
-                onPressed: () {
-                  // ボタンが押されたときの処理
+                onPressed: () async {
+                  // Jewel情報を保存
+                  await JewelService.addJewel(jewel);
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const NewJewelScreen()),
