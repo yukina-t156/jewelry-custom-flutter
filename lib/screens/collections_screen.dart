@@ -1,7 +1,8 @@
+// lib/screens/collections_screen.dart
 import 'package:flutter/material.dart';
 import 'package:jewelry_custom_flutter/services/jewel_service.dart';
-import 'collection_detail_screen.dart';
-import 'package:jewelry_custom_flutter/model/jewel_model.dart';
+import 'package:jewelry_custom_flutter/screens/collection_detail_screen.dart';
+import 'package:jewelry_custom_flutter/model/jewelry_model.dart';
 import 'package:jewelry_custom_flutter/widgets/foot_buttons.dart';
 
 class CollectionsScreen extends StatefulWidget {
@@ -12,18 +13,18 @@ class CollectionsScreen extends StatefulWidget {
 }
 
 class _CollectionsScreenState extends State<CollectionsScreen> {
-  List<Jewel> jewels = [];
+  List<Jewelry> jewelryList = [];
 
   @override
   void initState() {
     super.initState();
-    _loadJewels();
+    _loadJewelry();
   }
 
-  Future<void> _loadJewels() async {
-    final jewelList = await JewelService.getJewels();
+  Future<void> _loadJewelry() async {
+    final list = await JewelService.loadJewelry();
     setState(() {
-      jewels = jewelList.reversed.toList(); // 新しいものを上に表示
+      jewelryList = list;
     });
   }
 
@@ -34,12 +35,12 @@ class _CollectionsScreenState extends State<CollectionsScreen> {
         backgroundColor: Colors.blue[100],
         title: const Text('コレクション'),
       ),
-      body: jewels.isEmpty
+      body: jewelryList.isEmpty
           ? Center(child: Text('コレクションはありません'))
           : ListView.builder(
-        itemCount: jewels.length,
+        itemCount: jewelryList.length,
         itemBuilder: (context, index) {
-          final jewel = jewels[index];
+          final jewelry = jewelryList[index];
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Container(
@@ -54,7 +55,7 @@ class _CollectionsScreenState extends State<CollectionsScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => CollectionDetailScreen(id: jewel.id),
+                      builder: (context) => CollectionDetailScreen(id: jewelry.id),
                     ),
                   );
                 },
@@ -65,11 +66,8 @@ class _CollectionsScreenState extends State<CollectionsScreen> {
                       height: 50.0,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Colors.blueGrey[300],
-                      ),
-                      child: ClipOval(
-                        child: Image.asset(
-                          jewel.imagePath ?? 'assets/images/default.png', // デフォルト画像を設定
+                        image: DecorationImage(
+                          image: AssetImage(jewelry.imagePath ?? 'assets/images/default.png'),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -80,7 +78,7 @@ class _CollectionsScreenState extends State<CollectionsScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            jewel.name ?? '',
+                            jewelry.name ?? '',
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -88,7 +86,7 @@ class _CollectionsScreenState extends State<CollectionsScreen> {
                             ),
                           ),
                           Text(
-                            'レベル: ${jewel.level}',
+                            'レベル: ${jewelry.level}',
                             style: TextStyle(
                               fontSize: 14,
                               color: Colors.blueGrey[600],

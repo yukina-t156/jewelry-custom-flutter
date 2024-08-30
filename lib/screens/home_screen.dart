@@ -87,7 +87,7 @@ class HomeScreen extends ConsumerWidget {
             child: FloatingActionButton(
               heroTag: 'setting button',
               onPressed: () async {
-                await JewelService.clearAllJewels();
+                await JewelService.clearAllCollections();
                 ref.read(jewelProvider.notifier).resetJewel();
               },
               backgroundColor: Colors.white,

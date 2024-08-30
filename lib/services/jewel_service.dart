@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:jewelry_custom_flutter/model/jewel_model.dart';
+import 'package:jewelry_custom_flutter/model/jewelry_model.dart';
+
 
 class JewelService {
   static Future<void> saveJewels(List<Jewel> jewels) async {
@@ -53,9 +55,25 @@ class JewelService {
     return maxId + 1;
   }
 
-  // 全ての保存されたコレクションを削除
-  static Future<void> clearAllJewels() async {
+  static Future<void> clearAllCollections() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('jewels');
+    await prefs.remove('jewelry');
+  }
+
+  static Future<void> addJewelry(Jewelry jewelry) async {
+    final prefs = await SharedPreferences.getInstance();
+    final jewelryData = prefs.getStringList('jewelry') ?? [];
+    jewelryData.add(json.encode(jewelry.toJson()));
+    await prefs.setStringList('jewelry', jewelryData);
+  }
+
+  static Future<List<Jewelry>> loadJewelry() async {
+    final prefs = await SharedPreferences.getInstance();
+    final jsonList = prefs.getStringList('jewelry') ?? [];
+    return jsonList.map((jsonStr) {
+      final jsonMap = json.decode(jsonStr);
+      return Jewelry.fromJson(jsonMap);
+    }).toList();
   }
 }
