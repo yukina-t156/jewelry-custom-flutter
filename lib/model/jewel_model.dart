@@ -10,8 +10,23 @@ class Jewel {
     required this.jewelTypeId,
     required this.counter,
     required this.level,
+    String? imagePath,  // <- ここでimagePathを受け取れるようにする
   }): name = jewelNames[jewelTypeId],
-        imagePath = 'assets/images/${jewelNames[jewelTypeId]}_0.png';
+        imagePath = imagePath ?? 'assets/images/${jewelNames[jewelTypeId]}_0.png';
+
+  Jewel copyWith({
+    int? jewelTypeId,
+    int? counter,
+    int? level,
+    String? imagePath,
+  }) {
+    return Jewel(
+      jewelTypeId: jewelTypeId ?? this.jewelTypeId,
+      counter: counter ?? this.counter,
+      level: level ?? this.level,
+      imagePath: imagePath ?? this.imagePath,  // ここでオプションのimagePathを設定
+    );
+  }
 
   void updatePath() {
     String? jewelName = jewelNames[jewelTypeId];
@@ -25,7 +40,7 @@ class Jewel {
   }
 }
 
-String getJewelImagePath(int jewelTypeId, int level){
+String getJewelImagePath(int jewelTypeId, int level) {
   return 'assets/images/${jewelNames[jewelTypeId]}_$level.png';
 }
 

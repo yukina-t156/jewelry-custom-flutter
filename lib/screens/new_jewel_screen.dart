@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:jewelry_custom_flutter/model/jewel_model.dart';
-import 'package:jewelry_custom_flutter/screens/home_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:jewelry_custom_flutter/providers.dart';
 
-class NewJewelScreen extends StatefulWidget {
+class NewJewelScreen extends ConsumerStatefulWidget {
   const NewJewelScreen({super.key});
 
   @override
-  State<NewJewelScreen> createState() => _NewJewelScreenState();
+  ConsumerState<NewJewelScreen> createState() => _NewJewelScreenState();
 }
 
-class _NewJewelScreenState extends State<NewJewelScreen> {
-  int? selectedJewelTypeId;
+class _NewJewelScreenState extends ConsumerState<NewJewelScreen> {
+  int? selectedJewelTypeId; // ここでフィールドを定義
 
   @override
   Widget build(BuildContext context) {
@@ -69,19 +70,14 @@ class _NewJewelScreenState extends State<NewJewelScreen> {
               width: buttonWidth,
               child: ElevatedButton(
                 onPressed: () {
-                  // ボタンが押されたときの処理
                   if (selectedJewelTypeId != null) {
                     final jewel = Jewel(
                       jewelTypeId: selectedJewelTypeId!,
                       counter: 0,
                       level: 0,
                     );
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => HomeScreen(jewel: jewel),
-                      ),
-                    );
+                    ref.read(jewelProvider.notifier).updateJewel(jewel);
+                    Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Please select a jewel type')),

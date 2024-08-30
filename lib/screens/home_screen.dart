@@ -1,59 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jewelry_custom_flutter/screens/collections_screen.dart';
 import 'package:jewelry_custom_flutter/screens/finish_jewel_screen.dart';
 import 'package:jewelry_custom_flutter/widgets/foot_buttons.dart';
 import 'package:jewelry_custom_flutter/model/jewel_model.dart';
+import 'package:jewelry_custom_flutter/providers.dart';
 
-class HomeScreen extends StatefulWidget {
-  final Jewel? jewel;
-
-  const HomeScreen({super.key, this.jewel});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  late Jewel _jewel;
+class HomeScreen extends ConsumerWidget {
+  const HomeScreen({super.key});
 
   @override
-  void initState() {
-    super.initState();
-    _jewel = widget.jewel ?? Jewel(jewelTypeId: 2, counter: 0, level: 0); // 初期化
-  }
+  Widget build(BuildContext context, WidgetRef ref) {
 
-  static const List<int> countToLevel = [3, 10, 15, 20, 30, 999999999];
-  void _update() {
-    setState(() {
-      _jewel.level=0;
-    });
-    while(_jewel.counter>=countToLevel[_jewel.level]){
-      setState(() {
-        _jewel.level++;
-      });
-    }
-    _jewel.updatePath();
-  }
-
-  void _incrementJewelCounter() {
-    setState(() {
-      _jewel.counter++;
-    });
-    _update();
-  }
-
-  void _resetJewelCounter() {
-    setState(() {
-      _jewel = Jewel(jewelTypeId: 1, counter: 0, level: 0);
-    });
-    _update();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+    final jewel = ref.watch(jewelProvider);
     final screenWidth = MediaQuery.of(context).size.width;
-    final buttonWidth = screenWidth * 0.75; // 画面幅の80%
+    final buttonWidth = screenWidth * 0.75;
 
     return Scaffold(
       appBar: AppBar(
@@ -68,34 +30,32 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Image.asset(
-                  _jewel.imagePath ?? 'assets/images/test_jewel.png',
-                  // 'assets/images/test_jewel.png',
-                  width: 250, // 幅を指定
-                  height: 250, // 高さを指定
-                  fit: BoxFit.cover, // 画像を親ウィジェットに合わせてサイズ変更
+                  jewel.imagePath ?? 'assets/images/test_jewel.png',
+                  width: 250,
+                  height: 250,
+                  fit: BoxFit.cover,
                 ),
               ],
             ),
           ),
           /* -------------- みがくボタン -------------- */
           Positioned(
-            bottom: 60, // 画面下からの距離
-            left: (screenWidth - buttonWidth) / 2, // ボタンを中央に配置
+            bottom: 60,
+            left: (screenWidth - buttonWidth) / 2,
             child: SizedBox(
               width: buttonWidth,
               child: ElevatedButton(
                 onPressed: () {
-                  // ボタンが押されたときの処理
-                  _incrementJewelCounter();
+                  ref.read(jewelProvider.notifier).incrementCounter();
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFE5F9FF), // ボタンの背景色
-                  foregroundColor: const Color(0xFF006686), // ボタン上のテキストの色
-                  side: const BorderSide(color: Color(0xFF95DFF6), width: 8), // 枠の設定
+                  backgroundColor: const Color(0xFFE5F9FF),
+                  foregroundColor: const Color(0xFF006686),
+                  side: const BorderSide(color: Color(0xFF95DFF6), width: 8),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
-                  fixedSize: Size(buttonWidth, 70), // ボタンの幅と高さ
+                  fixedSize: Size(buttonWidth, 70),
                 ),
                 child: const Text(
                   'みがく',
@@ -106,14 +66,13 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           /* -------------- カウンタ・レベル表示 -------------- */
           Positioned(
-            bottom: 30, // 画面下からの距離
-            left: (screenWidth - buttonWidth) / 2, // ボタンを中央に配置
+            bottom: 30,
+            left: (screenWidth - buttonWidth) / 2,
             child: SizedBox(
               width: buttonWidth,
-              child:Center(
+              child: Center(
                 child: Text(
-                  // 'レベル：$_level',
-                  '磨いた回数：${_jewel.counter}  レベル：${_jewel.level}',
+                  '磨いた回数：${jewel.counter}  レベル：${jewel.level}  種類：${jewel.jewelTypeId}  画像パス：${jewel.imagePath}',
                   style: const TextStyle(fontSize: 16),
                 ),
               ),
@@ -126,14 +85,11 @@ class _HomeScreenState extends State<HomeScreen> {
             child: FloatingActionButton(
               heroTag: 'setting button',
               onPressed: () {
-                // ボタンが押されたときの処理
-                // デバッグ用
-                _resetJewelCounter();
+                ref.read(jewelProvider.notifier).resetJewel();
               },
-              backgroundColor: Colors.white, // 背景の色
-              foregroundColor: Colors.black, // アイコンの色
+              backgroundColor: Colors.white,
+              foregroundColor: Colors.black,
               shape: RoundedRectangleBorder(
-                // 枠
                 borderRadius: BorderRadius.circular(15),
                 side: const BorderSide(color: Colors.orange, width: 4),
               ),
@@ -147,18 +103,16 @@ class _HomeScreenState extends State<HomeScreen> {
             child: FloatingActionButton(
               heroTag: 'finish button',
               onPressed: () {
-              // ボタンが押されたときの処理
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => FinishJewelScreen(jewel: _jewel),
+                    builder: (context) => FinishJewelScreen(),
                   ),
                 );
               },
-              backgroundColor: Colors.white, // 背景の色
-              foregroundColor: Colors.black, // アイコンの色
+              backgroundColor: Colors.white,
+              foregroundColor: Colors.black,
               shape: RoundedRectangleBorder(
-                // 枠
                 borderRadius: BorderRadius.circular(15),
                 side: const BorderSide(color: Colors.orange, width: 4),
               ),
@@ -172,16 +126,14 @@ class _HomeScreenState extends State<HomeScreen> {
             child: FloatingActionButton(
               heroTag: 'collection button',
               onPressed: () {
-                // ボタンが押されたときの処理
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const CollectionsScreen()),
                 );
               },
-              backgroundColor: Colors.white, // 背景の色
-              foregroundColor: Colors.black, // アイコンの色
+              backgroundColor: Colors.white,
+              foregroundColor: Colors.black,
               shape: RoundedRectangleBorder(
-                // 枠
                 borderRadius: BorderRadius.circular(15),
                 side: const BorderSide(color: Colors.orange, width: 4),
               ),
@@ -192,9 +144,9 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       /* -------------- 下のメニュー欄 -------------- */
       bottomNavigationBar: Container(
-        color: Colors.grey[300], // 背景の灰色
-        height: 150, // 背景の高さ
-        child: const FooterButtons(location: 1), // フッターボタンを追加
+        color: Colors.grey[300],
+        height: 150,
+        child: const FooterButtons(location: 1),
       ),
     );
   }

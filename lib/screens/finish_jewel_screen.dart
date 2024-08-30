@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:jewelry_custom_flutter/model/jewel_model.dart';
-// import 'package:jewelry_custom_flutter/screens/home_screen.dart';
 import 'package:jewelry_custom_flutter/screens/new_jewel_screen.dart';
+import 'package:jewelry_custom_flutter/providers.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class FinishJewelScreen extends StatefulWidget {
-  final Jewel jewel;
-  const FinishJewelScreen({super.key, required this.jewel});
+class FinishJewelScreen extends ConsumerStatefulWidget {
+  const FinishJewelScreen({super.key});
 
   @override
-  State<FinishJewelScreen> createState() => _FinishJewelScreenState();
+  ConsumerState<FinishJewelScreen> createState() => _FinishJewelScreenState();
 }
 
-class _FinishJewelScreenState extends State<FinishJewelScreen> {
-
+class _FinishJewelScreenState extends ConsumerState<FinishJewelScreen> {
   @override
   Widget build(BuildContext context) {
+    final jewel = ref.watch(jewelProvider);
     final screenWidth = MediaQuery.of(context).size.width;
     final buttonWidth = screenWidth * 0.75; // 画面幅の75%
 
@@ -31,7 +31,7 @@ class _FinishJewelScreenState extends State<FinishJewelScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Image.asset(
-                  widget.jewel.imagePath ?? 'assets/images/test_jewel.png',
+                  jewel.imagePath ?? 'assets/images/test_jewel.png',
                   width: 250, // 幅を指定
                   height: 250, // 高さを指定
                   fit: BoxFit.cover, // 画像を親ウィジェットに合わせてサイズ変更
