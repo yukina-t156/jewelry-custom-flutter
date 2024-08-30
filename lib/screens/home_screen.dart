@@ -73,7 +73,8 @@ class HomeScreen extends ConsumerWidget {
               width: buttonWidth,
               child: Center(
                 child: Text(
-                  '磨いた回数：${jewel.counter}  レベル：${jewel.level}  種類：${jewel.jewelTypeId}  画像パス：${jewel.imagePath}',
+                  '磨いた回数：${jewel.counter}  レベル：${jewel.level}',
+                  // '磨いた回数：${jewel.counter}  レベル：${jewel.level}  種類：${jewel.jewelTypeId}  画像パス：${jewel.imagePath}',
                   style: const TextStyle(fontSize: 16),
                 ),
               ),
