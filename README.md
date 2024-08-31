@@ -1,3 +1,9 @@
+この作品はOpen HACK U 2024で作成した作品です。
+
+[発表スライド](documents/slides.pdf)
+
+[デザイン](documents/design.pdf)
+
 # jewelry_custom_flutter
 
 A custom management app
