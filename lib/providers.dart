@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jewelry_custom_flutter/model/jewel_model.dart';
-import 'package:jewelry_custom_flutter/model/jewelry_model.dart';
 
 class JewelNotifier extends StateNotifier<Jewel> {
   JewelNotifier() : super(Jewel(id: 0, jewelTypeId: 2, counter: 0, level: 0));

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:jewelry_custom_flutter/model/jewel_model.dart';
 import 'package:jewelry_custom_flutter/model/jewelry_model.dart';
 import 'package:jewelry_custom_flutter/screens/new_jewel_screen.dart';
 import 'package:jewelry_custom_flutter/services/jewel_service.dart';

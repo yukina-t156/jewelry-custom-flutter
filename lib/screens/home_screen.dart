@@ -5,7 +5,6 @@ import 'package:jewelry_custom_flutter/screens/collections_screen.dart';
 import 'package:jewelry_custom_flutter/screens/finish_jewel_screen.dart';
 import 'package:jewelry_custom_flutter/widgets/foot_buttons.dart';
 import 'package:jewelry_custom_flutter/services/jewel_service.dart';
-import 'package:jewelry_custom_flutter/model/jewel_model.dart';
 import 'package:jewelry_custom_flutter/providers.dart';
 
 class HomeScreen extends ConsumerWidget {
